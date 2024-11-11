@@ -73,7 +73,6 @@
 
   imports = [
     ./glpkgs.nix
-    ./music.nix
     ./rofi.nix
     ./neovim.nix
     ./ergonomics.nix

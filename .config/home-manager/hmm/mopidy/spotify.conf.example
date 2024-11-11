@@ -1,8 +1,0 @@
-[spotify]
-client_id = ???
-client_secret = ???
-username = ???
-password = ???
-bitrate = 320
-search_album_count = 50
-search_track_count = 50
