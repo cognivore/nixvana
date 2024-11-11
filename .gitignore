@@ -1,14 +1,1 @@
-*
-!.gitignore
-
-!.config/
-!.config/home-manager/
-!.config/home-manager/**
-!.config/system-manager/
-!.config/system-manager/**
-
-!.envrc
-!flake.nix
-!flake.lock
-
-!README.md
+result
