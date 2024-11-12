@@ -64,6 +64,7 @@
     ../include/programming/purescript.nix
     ../include/gui/glpkgs.nix
     ../include/gui/rofi.nix
+    ../include/gui.nix
     ./neovim.nix
   ];
 }
