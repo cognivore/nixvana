@@ -66,5 +66,6 @@
     ../include/gui/rofi.nix
     ../include/gui.nix
     ./neovim.nix
+    ./grafana.nix
   ];
 }

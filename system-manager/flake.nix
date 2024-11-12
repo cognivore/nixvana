@@ -8,7 +8,7 @@
     };
   };
 
-  outputs = { self, flake-utils, nixpkgs, system-manager }:
+  outputs = { nixpkgs, system-manager, ... }:
 
   let
     pkgs = import nixpkgs { system = "x86_64-linux"; };
@@ -16,9 +16,16 @@
   in
 
   {
-    systemConfigs.default = system-manager.lib.makeSystemConfig {
+    systemConfigs."rethink" = system-manager.lib.makeSystemConfig {
       modules = [
-        ./modules
+        ./rethink
+      ];
+    };
+
+    systemConfigs."crawlspace" = system-manager.lib.makeSystemConfig {
+      modules = [
+        ./crawlspace/system.nix
+        ./monitoring/prometheus.nix
       ];
     };
 
