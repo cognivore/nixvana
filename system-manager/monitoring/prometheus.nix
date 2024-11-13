@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  config.environment.systemPackages = [
+    pkgs.prometheus
+    pkgs.prometheus-node-exporter
+  ];
+
   config.systemd.services.prometheus = {
     enable = true;
     serviceConfig = {
