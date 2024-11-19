@@ -12,6 +12,7 @@
 
     pkgs.darcs
     pkgs.parallel
+    pkgs.expect
     pkgs.passveil
     pkgs.shmux
 
