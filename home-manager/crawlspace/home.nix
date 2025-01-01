@@ -67,5 +67,6 @@
     ../include/gui.nix
     ./neovim.nix
     ./grafana.nix
+    ./shells.nix
   ];
 }

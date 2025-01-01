@@ -8,6 +8,7 @@ let
   kittyW = (ngl.nixGLMesaWrap pkgs.kitty);
   alacrittyW = (ngl.nixGLMesaWrap pkgs.alacritty);
   gimpW = (ngl.nixGLMesaWrap pkgs.gimp);
+  ffmpegW = (ngl.nixGLMesaWrap pkgs.ffmpeg);
 in
 {
   programs.kitty = {
@@ -25,5 +26,6 @@ in
 
   home.packages = [
     gimpW
+    ffmpegW
   ];
 }

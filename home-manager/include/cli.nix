@@ -27,7 +27,7 @@
     pkgs.gnupg
     pkgs.pinentry-curses
 
-    pkgs.cowsay
+    pkgs.util-linux
 
   ];
 }
