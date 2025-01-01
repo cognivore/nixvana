@@ -14,6 +14,10 @@
         - job_name: "zhr_devs"
           static_configs:
             - targets: ['localhost:4164']
+        - job_name: "zhr_rootrunner"
+          static_configs:
+            - targets: ['localhost:1644']
     '';
   };
 }
+
