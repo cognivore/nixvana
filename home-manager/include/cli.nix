@@ -29,5 +29,7 @@
 
     pkgs.util-linux
 
+    pkgs.nvix
+
   ];
 }

@@ -16,7 +16,10 @@
             - targets: ['localhost:4164']
         - job_name: "zhr_rootrunner"
           static_configs:
-            - targets: ['localhost:1644']
+            - targets: ['localhost:4002']
+        - job_name: "zhr_rootrunner_staging"
+          static_configs:
+            - targets: ['localhost:4001']
     '';
   };
 }

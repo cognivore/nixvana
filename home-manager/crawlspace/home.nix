@@ -60,12 +60,19 @@
     };
   };
 
+  programs.bash.shellAliases = {
+    vim = "nvim";
+  };
+
+  programs.zsh.shellAliases = {
+    vim = "nvim";
+  };
+
   imports = [
     ../include/programming/purescript.nix
     ../include/gui/glpkgs.nix
     ../include/gui/rofi.nix
     ../include/gui.nix
-    ./neovim.nix
     ./grafana.nix
     ./shells.nix
   ];

@@ -27,6 +27,7 @@
       url = "github:doma-engineering/shmux";
     };
     purescript-overlay.url = "github:thomashoneyman/purescript-overlay";
+    nvix.url = "github:niksingh710/nvix";
   };
 
   outputs =
@@ -39,6 +40,7 @@
       purescript-overlay,
       stylix,
       nixgl,
+      nvix,
       ...
     }:
     let
@@ -53,6 +55,7 @@
             passveil = passveil.packages.${final.system}.default;
             shmux = shmux.packages.${final.system}.default;
             system-manager = system-manager.packages.${final.system}.system-manager;
+	    nvix = nvix.packages.${final.system}.full;
           })
         ];
       };
