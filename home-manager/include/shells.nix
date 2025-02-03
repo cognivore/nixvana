@@ -124,6 +124,9 @@ in
 
     # Use vi mode in the shell
     set -o vi
+
+    # Enable Nix from ~/.nix-profile/
+    if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
   '';
 
   programs.fzf = {
@@ -265,6 +268,9 @@ in
         fi
         PS1='$ '
       fi
+
+      # Enable Nix from ~/.nix-profile/
+      if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
     '';
   };
 

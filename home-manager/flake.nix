@@ -65,9 +65,9 @@
       #   home-manager switch --flake .#crawlspace
       # Or to build without activating:
       #   home-manager build --flake .#crawlspace
+
       homeConfigurations."crawlspace" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         extraSpecialArgs = {
@@ -77,11 +77,26 @@
         };
         modules = [
           ./general.nix
-
           stylix.homeManagerModules.stylix
           ./crawlspace/home.nix
         ];
       };
+
+      homeConfigurations."timetwister" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          hostname = "timetwister";
+          # TODO: myShell isn't doing anything yet
+          myShell = pkgs.zsh;
+        };
+        modules = [
+          ./general.nix
+          stylix.homeManagerModules.stylix
+          ./timetwister/home.nix
+        ];
+      };
+
+
       homeConfigurations."nosnoop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
