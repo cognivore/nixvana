@@ -1,0 +1,7 @@
+keys:
+  - &myPublicKey age1sl0vdw4hm89wy80scknp43czy66d9yky35s3g9m8zdnws3af3pws4g3zaz
+creation_rules:
+  - path_regex: crawlspace/database-secrets.json$
+    key_groups:
+      - age:
+        - *myPublicKey

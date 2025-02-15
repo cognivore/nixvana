@@ -1,2 +1,4 @@
 result
 .direnv
+crawlspace/database-secrets.json
+crawlspace/database-secrets.nix

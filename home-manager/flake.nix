@@ -28,6 +28,7 @@
     };
     purescript-overlay.url = "github:thomashoneyman/purescript-overlay";
     nvix.url = "github:niksingh710/nvix";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs =
@@ -41,6 +42,7 @@
       stylix,
       nixgl,
       nvix,
+      sops-nix,
       ...
     }:
     let
@@ -55,7 +57,8 @@
             passveil = passveil.packages.${final.system}.default;
             shmux = shmux.packages.${final.system}.default;
             system-manager = system-manager.packages.${final.system}.system-manager;
-	    nvix = nvix.packages.${final.system}.full;
+            nvix = nvix.packages.${final.system}.full;
+            sops-nix = sops-nix.homeManagerModules.sops;
           })
         ];
       };

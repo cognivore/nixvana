@@ -10,6 +10,8 @@
 
   home.packages = [
     pkgs.remmina
+    pkgs.age
+    pkgs.sops
   ];
 
   home.file =
@@ -76,4 +78,5 @@
     ./grafana.nix
     ./shells.nix
   ];
+
 }
