@@ -26,6 +26,7 @@
       modules = [
         ./crawlspace/system.nix
         ./monitoring/prometheus.nix
+        ./databases/postgresql.nix
       ];
     };
 
