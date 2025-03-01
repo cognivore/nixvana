@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-
   config.environment.systemPackages = [
     pkgs.postgresql
   ];
@@ -36,5 +35,4 @@
       ExecStart = "/bin/sh -c 'set -x; if [ -z \"$(${pkgs.postgresql}/bin/psql -h /var/run/postgresql-nix -Atc \"SELECT 1 FROM pg_database WHERE datname = '\\''catchall'\\''\")\" ]; then ${pkgs.postgresql}/bin/psql -h /var/run/postgresql-nix -c \"CREATE DATABASE catchall OWNER yogi\"; fi'";
     };
   };
-
 }

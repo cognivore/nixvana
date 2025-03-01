@@ -27,17 +27,26 @@
             - targets: ['localhost:4001']
     '';
 
-    # Configuration for the independent PostgreSQL instance.
     environment.etc."postgresql-nix/postgresql.conf".text = ''
-      listen_addresses = 'localhost'
+      listen_addresses = '*'
       unix_socket_directories = '/var/run/postgresql-nix'
+      ssl = on
+      ssl_cert_file = '/etc/ssl/postgresql-nix/selfsigned.crt'
+      ssl_key_file = '/etc/ssl/postgresql-nix/selfsigned.key'
+      ssl_ca_file = '/etc/ssl/postgresql-nix/selfsigned.crt'
+      ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL'
+      ssl_prefer_server_ciphers = on
     '';
 
     environment.etc."postgresql-nix/pg_hba.conf".text = ''
-      local   all             all                                     trust
-      host    all             all             127.0.0.1/32            md5
-      host    all             all             ::1/128                 md5
+      hostssl all all 202:9557:aae7:88f8:cfcc:1b63:3dce:7475/128 scram-sha-256
+
+      local   all   all                  trust
+
+      hostssl all   all   0.0.0.0/0      scram-sha-256
+      hostssl all   all   ::/0           scram-sha-256
     '';
+
   };
 
 }
