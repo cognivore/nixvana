@@ -36,6 +36,7 @@
       ssl_ca_file = '/etc/ssl/postgresql-nix/selfsigned.crt'
       ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL'
       ssl_prefer_server_ciphers = on
+      hba_file = '/etc/postgresql-nix/pg_hba.conf'
     '';
 
     environment.etc."postgresql-nix/pg_hba.conf".text = ''
