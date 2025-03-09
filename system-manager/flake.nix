@@ -30,6 +30,14 @@
       ];
     };
 
+    systemConfigs."urborg" = system-manager.lib.makeSystemConfig {
+      modules = [
+        ./urborg/system.nix
+        ./monitoring/prometheus.nix
+        ./databases/postgresql.nix
+      ];
+    };
+
     devShell.x86_64-linux = pkgs.mkShell {
       buildInputs = [
         system-manager.packages.x86_64-linux.default

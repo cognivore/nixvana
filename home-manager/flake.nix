@@ -109,5 +109,19 @@
           ./nosnoop/home.nix
         ];
       };
+
+      homeConfigurations."urborg" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          hostname = "urborg";
+          # TODO: myShell isn't doing anything yet
+          myShell = pkgs.zsh;
+        };
+        modules = [
+          ./general11.nix
+          ./urborg/home.nix
+        ];
+      };
+
     };
 }
