@@ -37,15 +37,27 @@
       ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL'
       ssl_prefer_server_ciphers = on
       hba_file = '/etc/postgresql-nix/pg_hba.conf'
+
+      wal_level = 'replica'
+      max_wal_senders = 10
+      max_replication_slots = 10
+      hot_standby = on
     '';
 
     environment.etc."postgresql-nix/pg_hba.conf".text = ''
-      hostssl all all 202:9557:aae7:88f8:cfcc:1b63:3dce:7475/128 scram-sha-256
+      # urborg.geosurge.ai
+      hostssl all           replicant 147.93.87.234/32 scram-sha-256
+      hostssl all           replicant 2a02:4780:f:db50::1/128 scram-sha-256
+      hostssl replication   replicant 147.93.87.234/32 scram-sha-256
+      hostssl replication   replicant 2a02:4780:f:db50::1/128 scram-sha-256
 
       local   all   all                  trust
 
-      hostssl all   all   0.0.0.0/0      scram-sha-256
-      hostssl all   all   ::/0           scram-sha-256
+      # The world
+      hostssl all   fran    0.0.0.0/0      scram-sha-256
+      hostssl all   fran    ::/0           scram-sha-256
+      hostssl all   sweater 0.0.0.0/0      scram-sha-256
+      hostssl all   sweater ::/0           scram-sha-256
     '';
 
   };
