@@ -38,12 +38,20 @@
     '';
 
     environment.etc."postgresql-nix/pg_hba.conf".text = ''
-      hostssl all all 202:9557:aae7:88f8:cfcc:1b63:3dce:7475/128 scram-sha-256
-
       local   all   all                  trust
 
       hostssl all   all   0.0.0.0/0      scram-sha-256
       hostssl all   all   ::/0           scram-sha-256
+    '';
+
+    environment.etc."postgresql-nix/geosurge_replica.conf".text = ''
+      hot_standby = on
+      primary_conninfo = 'host=crawlspace.memorici.de port=5432 user=replicant password=canttouchthis sslmode=require'
+      primary_slot_name = 'urborg_slot'
+      port = 5678
+
+      hba_file = '/etc/postgresql-nix/pg_hba.conf'
+      unix_socket_directories = '/var/run/postgresql-replica-geosurge'
     '';
 
   };

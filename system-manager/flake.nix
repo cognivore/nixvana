@@ -35,6 +35,7 @@
         ./urborg/system.nix
         ./monitoring/prometheus.nix
         ./databases/postgresql.nix
+        ./databases/replication/geosurge.nix
       ];
     };
 
