@@ -58,6 +58,8 @@
       hostssl all   fran    ::/0           scram-sha-256
       hostssl all   sweater 0.0.0.0/0      scram-sha-256
       hostssl all   sweater ::/0           scram-sha-256
+      hostssl all   fbthlp  0.0.0.0/0      scram-sha-256
+      hostssl all   fbthlp  ::/0           scram-sha-256
     '';
 
   };
