@@ -33,6 +33,7 @@
     systemConfigs."urborg" = system-manager.lib.makeSystemConfig {
       modules = [
         ./urborg/system.nix
+        ./urborg/sites.nix
         ./monitoring/prometheus.nix
         ./databases/postgresql.nix
         ./databases/replication/geosurge.nix
