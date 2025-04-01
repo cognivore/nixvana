@@ -11,10 +11,8 @@
     serviceConfig = {
       User = "postgres";
       Type = "simple";
-      RuntimeDirectory = "postgresql-replica-geosurge-cold";
-      RuntimeDirectoryMode = "0755";
       ExecStart = ''
-        /bin/sh -c "D=/var/run/postgresql-replica-geosurge-cold && mkdir -p $D && ${pkgs.postgresql}/bin/pg_basebackup -d 'postgres://replicant:canttouchthis@crawlspace.memorici.de/geosurge?sslmode=require' -D $D -S urborg_daily_slot -P -v --wal-method=stream --write-recovery-conf && \
+        /bin/sh -c "D=/var/lib/postgresql/replica-geosurge-cold && mkdir -p $D && ${pkgs.postgresql}/bin/pg_basebackup -d 'postgres://replicant:canttouchthis@crawlspace.memorici.de/geosurge?sslmode=require' -D $D -S urborg_daily_slot -P -v --wal-method=stream --write-recovery-conf && \
         cp -rv $D/ /var/lib/postgresql/geosurge.today && \
         rm -rf /var/lib/postgresql/geosurge.yesterday && \
         mv /var/lib/postgresql/geosurge.today /var/lib/postgresql/geosurge.yesterday"
@@ -44,7 +42,7 @@
     timerConfig = {
       OnCalendar = "*-*-* 00:00:00";
       Persistent = true;
-      unit = "pg-basebackup-geosurge.service";
+      Unit = "pg-basebackup-geosurge.service";
     };
     wantedBy = [ "timers.target" ];
   };
