@@ -776,6 +776,21 @@
     },
     "nixpkgs_7": {
       "locked": {
+        "lastModified": 1728831343,
+        "narHash": "sha256-dmR6WbEnvMvxiDTw4ggyzWRyElPdCk4Czq+uZB2luYs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5c3f89dcd7c47ae9eb38889543478c188227f488",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_8": {
+      "locked": {
         "lastModified": 1725194671,
         "narHash": "sha256-tLGCFEFTB5TaOKkpfw3iYT9dnk4awTP/q4w+ROpMfuw=",
         "owner": "NixOS",
@@ -972,6 +987,7 @@
         "nvix": "nvix",
         "passveil": "passveil",
         "purescript-overlay": "purescript-overlay",
+        "seedot": "seedot",
         "shmux": "shmux",
         "stylix": "stylix",
         "system-manager": "system-manager"
@@ -998,9 +1014,27 @@
         "type": "github"
       }
     },
-    "shmux": {
+    "seedot": {
       "inputs": {
         "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1743268268,
+        "narHash": "sha256-xjtI8GlLAELLA1Ut57EIQBUg18Rg037Ip8vCaddwY/s=",
+        "owner": "cognivore",
+        "repo": "seedot",
+        "rev": "50aa6b756953702e0a9a2a18e53aa468b4995c87",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cognivore",
+        "repo": "seedot",
+        "type": "github"
+      }
+    },
+    "shmux": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1728831997,
@@ -1047,7 +1081,7 @@
         "flake-utils": "flake-utils_3",
         "gnome-shell": "gnome-shell",
         "home-manager": "home-manager_3",
-        "nixpkgs": "nixpkgs_7",
+        "nixpkgs": "nixpkgs_8",
         "systems": "systems_2",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",

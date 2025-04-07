@@ -26,6 +26,9 @@
     shmux = {
       url = "github:doma-engineering/shmux";
     };
+    seedot = {
+      url = "github:cognivore/seedot";
+    };
     purescript-overlay.url = "github:thomashoneyman/purescript-overlay";
     nvix.url = "github:niksingh710/nvix";
   };
@@ -37,6 +40,7 @@
       system-manager,
       passveil,
       shmux,
+      seedot,
       purescript-overlay,
       stylix,
       nixgl,
@@ -54,6 +58,7 @@
           (final: prev: {
             passveil = passveil.packages.${final.system}.default;
             shmux = shmux.packages.${final.system}.default;
+            seedot = seedot.packages.${final.system}.default;
             system-manager = system-manager.packages.${final.system}.system-manager;
 	    nvix = nvix.packages.${final.system}.full;
           })

@@ -42,6 +42,11 @@
       max_wal_senders = 10
       max_replication_slots = 10
       hot_standby = on
+
+      max_wal_size = 2GB
+      min_wal_size = 80MB
+      checkpoint_timeout = 10min
+      checkpoint_completion_target = 0.9
     '';
 
     environment.etc."postgresql-nix/pg_hba.conf".text = ''

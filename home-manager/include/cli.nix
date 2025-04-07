@@ -15,6 +15,7 @@
     pkgs.expect
     pkgs.passveil
     pkgs.shmux
+    pkgs.seedot
 
     pkgs.jq
     pkgs.curl
