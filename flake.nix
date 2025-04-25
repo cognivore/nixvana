@@ -7,14 +7,19 @@
 
   outputs = { nixpkgs, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in {
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixfmt-rfc-style
-          nixd
-        ];
-      };
+      devShells = forAllSystems (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              nixfmt-rfc-style
+              nixd
+            ];
+          };
+        });
     };
 }
