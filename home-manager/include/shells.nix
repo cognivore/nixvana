@@ -50,15 +50,33 @@ let
     else
       abort "Invalid hex character: ${c}";
 
+  # returns a colour code that isn't in the lowest luminance tier
+  ensureBright =
+    code:
+    let
+      # extract the 0-5 RGB coordinates
+      idx = code - 16;
+      r = (mod (idx / 36) 6);
+      g = (mod (idx / 6) 6);
+      b = (mod idx 6);
+    in
+    if
+      (r + g + b) <= 2 # all channels 0 or 1 → very dark
+    then
+      (mod (code + 36) 216) + 16
+    else
+      code;
+
   # Function to generate color codes based on a hash
   generateColor =
     name:
     let
       # 0-255 from the first two hex digits of the MD5 hash
-      code256 = parseHex (builtins.substring 0 2 (builtins.hashString "md5" name));
+      raw = parseHex (builtins.substring 0 2 (builtins.hashString "md5" name));
+      cube = (mod raw 216) + 16;
     in
     # stay in the 6×6×6 colour cube (skip 0-15 = system colours)
-    (mod code256 216) + 16;
+    ensureBright cube;
 
   # Function to parse a two-character hex string to an integer
   parseHex =
@@ -141,100 +159,101 @@ in
     enableZshIntegration = true;
   };
 
-  programs.starship.enableBashIntegration = false;
-  programs.starship.settings = {
-    aws.symbol = mkDefault " ";
-    battery.full_symbol = mkDefault "";
-    battery.charging_symbol = mkDefault "";
-    battery.discharging_symbol = mkDefault "";
-    battery.unknown_symbol = mkDefault "";
-    battery.empty_symbol = mkDefault "";
-    cmake.symbol = mkDefault "△ ";
-    conda.symbol = mkDefault " ";
-    crystal.symbol = mkDefault " ";
-    dart.symbol = mkDefault " ";
-    docker_context.symbol = mkDefault " ";
-    dotnet.symbol = mkDefault " ";
-    elixir.symbol = mkDefault " ";
-    elm.symbol = mkDefault " ";
-    erlang.symbol = mkDefault " ";
-    git_branch.symbol = mkDefault " ";
-    git_commit.tag_symbol = mkDefault " ";
-    git_status.format = mkDefault "([$all_status$ahead_behind]($style) )";
-    git_status.conflicted = mkDefault " ";
-    git_status.ahead = mkDefault " ";
-    git_status.behind = mkDefault " ";
-    git_status.diverged = mkDefault " ";
-    git_status.untracked = mkDefault " ";
-    git_status.stashed = mkDefault " ";
-    git_status.modified = mkDefault " ";
-    git_status.staged = mkDefault " ";
-    git_status.renamed = mkDefault " ";
-    git_status.deleted = mkDefault " ";
-    golang.symbol = mkDefault " ";
-    helm.symbol = mkDefault "⎈ ";
-    hg_branch.symbol = mkDefault " ";
-    java.symbol = mkDefault " ";
-    julia.symbol = mkDefault " ";
-    kotlin.symbol = mkDefault " ";
-    kubernetes.symbol = mkDefault "☸ ";
-    lua.symbol = mkDefault " ";
-    nim.symbol = mkDefault " ";
-    nix_shell.symbol = mkDefault " ";
-    nodejs.symbol = mkDefault " ";
-    openstack.symbol = mkDefault " ";
-    package.symbol = mkDefault " ";
-    perl.symbol = mkDefault " ";
-    php.symbol = mkDefault " ";
-    purescript.symbol = mkDefault "<≡> ";
-    python.symbol = mkDefault " ";
-    ruby.symbol = mkDefault " ";
-    rust.symbol = mkDefault " ";
-    status.symbol = mkDefault " ";
-    status.not_executable_symbol = mkDefault " ";
-    status.not_found_symbol = mkDefault " ";
-    status.sigint_symbol = mkDefault " ";
-    status.signal_symbol = mkDefault " ";
-    swift.symbol = mkDefault " ";
-    terraform.symbol = mkDefault "𝗧 ";
-    vagrant.symbol = mkDefault "𝗩 ";
-    zig.symbol = mkDefault " ";
-    time.style = "fg:${toString timeColor}";
-    character.style = "fg:${toString lambdaColor}";
-  };
+  programs.starship = {
+    enable = true; # enables for all shells that source it
+    enableBashIntegration = false; # we use a hand-rolled PS1 in Bash
 
-  # Starship Prompt
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.starship.enable
-  programs.starship.enable = true;
+    settings = {
+      # ───── Host & user ──────────────────────────────────────────
+      hostname = {
+        ssh_only = false;
+        format = "on [$hostname]($style)"; # << no “prefix” key
+        style = "bold fg:${toString hostColor}";
+      };
 
-  programs.starship.settings = {
-    # See docs here: https://starship.rs/config/
-    # TODO: Move symbols to another file
-    directory.read_only = mkDefault " ";
-    directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation
-    directory.truncation_length = 8; # number of directories not to truncate
-    directory.style = "fg:${toString pathColor}";
+      username = {
+        show_always = true;
+        style_user = "bold fg:${toString userColor}";
+      };
 
-    # TODO: Move symbols to another file
-    gcloud.symbol = mkDefault " ";
-    gcloud.disabled = true; # annoying to always have on
+      # ───── Directory ───────────────────────────────────────────
+      directory = {
+        read_only = " ";
+        fish_style_pwd_dir_length = 5;
+        truncation_length = 10;
+        style = "fg:${toString pathColor}";
+      };
 
-    hostname = {
-      ssh_only = false;
-      prefix = "on ";
-      style = "bold fg:${toString hostColor}";
-    };
+      # ───── Git & time ──────────────────────────────────────────
+      git_branch.style = "fg:${toString gitColor}";
+      time.style = "fg:${toString timeColor}";
 
-    # TODO: Move symbols to another file
-    memory_usage.symbol = mkDefault " ";
-    memory_usage.disabled = true; # because it includes cached memory it's reported as full a lot
+      # ───── Prompt char (λ) ─────────────────────────────────────
+      character = {
+        success_symbol = "[λ](fg:${toString lambdaColor})";
+        error_symbol = "[λ](fg:${toString lambdaColor})";
+        vicmd_symbol = "[λ](fg:${toString lambdaColor})";
+        # everything else inherits the same coloured λ
+      };
 
-    # TODO: Move symbols to another file
-    shlvl.symbol = mkDefault " ";
-    shlvl.disabled = false;
-
-    username = {
-      style_user = "bold fg:${toString userColor}";
+      # ───── Misc built-in symbol tweaks (unchanged) ─────────────
+      aws.symbol = mkDefault " ";
+      battery.full_symbol = mkDefault "";
+      battery.charging_symbol = mkDefault "";
+      battery.discharging_symbol = mkDefault "";
+      battery.unknown_symbol = mkDefault "";
+      battery.empty_symbol = mkDefault "";
+      cmake.symbol = mkDefault "△ ";
+      conda.symbol = mkDefault " ";
+      crystal.symbol = mkDefault " ";
+      dart.symbol = mkDefault " ";
+      docker_context.symbol = mkDefault " ";
+      dotnet.symbol = mkDefault " ";
+      elixir.symbol = mkDefault " ";
+      elm.symbol = mkDefault " ";
+      erlang.symbol = mkDefault " ";
+      git_branch.symbol = mkDefault " ";
+      git_commit.tag_symbol = mkDefault " ";
+      git_status.format = mkDefault "([$all_status$ahead_behind]($style) )";
+      git_status.conflicted = mkDefault " ";
+      git_status.ahead = mkDefault " ";
+      git_status.behind = mkDefault " ";
+      git_status.diverged = mkDefault " ";
+      git_status.untracked = mkDefault " ";
+      git_status.stashed = mkDefault " ";
+      git_status.modified = mkDefault " ";
+      git_status.staged = mkDefault " ";
+      git_status.renamed = mkDefault " ";
+      git_status.deleted = mkDefault " ";
+      golang.symbol = mkDefault " ";
+      helm.symbol = mkDefault "⎈ ";
+      hg_branch.symbol = mkDefault " ";
+      java.symbol = mkDefault " ";
+      julia.symbol = mkDefault " ";
+      kotlin.symbol = mkDefault " ";
+      kubernetes.symbol = mkDefault "☸ ";
+      lua.symbol = mkDefault " ";
+      nim.symbol = mkDefault " ";
+      nix_shell.symbol = mkDefault " ";
+      nodejs.symbol = mkDefault " ";
+      openstack.symbol = mkDefault " ";
+      package.symbol = mkDefault " ";
+      perl.symbol = mkDefault " ";
+      php.symbol = mkDefault " ";
+      purescript.symbol = mkDefault "<≡> ";
+      python.symbol = mkDefault " ";
+      ruby.symbol = mkDefault " ";
+      rust.symbol = mkDefault " ";
+      status.symbol = mkDefault " ";
+      status.not_executable_symbol = mkDefault " ";
+      status.not_found_symbol = mkDefault " ";
+      status.sigint_symbol = mkDefault " ";
+      status.signal_symbol = mkDefault " ";
+      swift.symbol = mkDefault " ";
+      terraform.symbol = mkDefault "𝗧 ";
+      vagrant.symbol = mkDefault "𝗩 ";
+      zig.symbol = mkDefault " ";
+      character.style = "fg:${toString lambdaColor}";
     };
   };
 
