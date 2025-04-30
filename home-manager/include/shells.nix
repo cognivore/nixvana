@@ -1,4 +1,9 @@
-{ pkgs, lib, hostname, ... }:
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}:
 
 let
   inherit (lib) mkDefault mod;
@@ -49,10 +54,11 @@ let
   generateColor =
     name:
     let
-      hashValue = builtins.hashString "md5" name;
-      colorCode = parseHex (builtins.substring 0 2 hashValue);
+      # 0-255 from the first two hex digits of the MD5 hash
+      code256 = parseHex (builtins.substring 0 2 (builtins.hashString "md5" name));
     in
-    (mod colorCode 8) + 1;
+    # stay in the 6×6×6 colour cube (skip 0-15 = system colours)
+    (mod code256 216) + 16;
 
   # Function to parse a two-character hex string to an integer
   parseHex =
@@ -193,6 +199,8 @@ in
     terraform.symbol = mkDefault "𝗧 ";
     vagrant.symbol = mkDefault "𝗩 ";
     zig.symbol = mkDefault " ";
+    time.style = "fg:${toString timeColor}";
+    character.style = "fg:${toString lambdaColor}";
   };
 
   # Starship Prompt
@@ -204,13 +212,18 @@ in
     # TODO: Move symbols to another file
     directory.read_only = mkDefault " ";
     directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation
-    directory.truncation_length = 2; # number of directories not to truncate
+    directory.truncation_length = 8; # number of directories not to truncate
+    directory.style = "fg:${toString pathColor}";
 
     # TODO: Move symbols to another file
     gcloud.symbol = mkDefault " ";
     gcloud.disabled = true; # annoying to always have on
 
-    hostname.style = "bold fg:${toString hostColor}";
+    hostname = {
+      ssh_only = false;
+      prefix = "on ";
+      style = "bold fg:${toString hostColor}";
+    };
 
     # TODO: Move symbols to another file
     memory_usage.symbol = mkDefault " ";
@@ -220,7 +233,9 @@ in
     shlvl.symbol = mkDefault " ";
     shlvl.disabled = false;
 
-    username.style_user = "bold fg:${toString userColor}";
+    username = {
+      style_user = "bold fg:${toString userColor}";
+    };
   };
 
   programs.zsh = {
