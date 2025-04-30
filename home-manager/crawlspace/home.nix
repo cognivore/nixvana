@@ -35,7 +35,7 @@
         name = "Noto Color Emoji";
       };
       monospace = {
-        package = pkgs.nerdfonts;
+        package = pkgs.nerd-fonts.caskaydia-cove;
         name = "CaskaydiaCove NFM";
       };
       serif = {

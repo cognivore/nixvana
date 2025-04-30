@@ -8,6 +8,5 @@
 
     pkgs.xclip
     pkgs.autocutsel
-    pkgs.unclutter
   ];
 }
