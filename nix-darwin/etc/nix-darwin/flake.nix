@@ -17,6 +17,7 @@
       home-manager,
     }:
     let
+      hostName = "pentavus";
       configuration =
         { pkgs, ... }:
         {
@@ -24,6 +25,7 @@
             pkgs.htop
             pkgs.direnv
             pkgs.nix-direnv
+            home-manager.packages.${pkgs.system}.home-manager
           ];
 
           # direnv integration for every shell
@@ -64,23 +66,18 @@
             ];
           };
 
+          networking.hostName = hostName;
+          networking.computerName = hostName;
+          networking.localHostName = hostName;
+
         };
     in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#sweaters-MacBook-Pro
-      darwinConfigurations."sweaters-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${hostName} = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
-          home-manager.darwinModules.home-manager
-          {
-            # make HM use the same pkgs set as the system
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            # every current macOS user gets an empty HM config
-            # (they can extend it with ~/.config/home-manager/*.nix)
-          }
         ];
       };
     };
