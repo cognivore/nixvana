@@ -167,7 +167,7 @@ in
       # ───── Host & user ──────────────────────────────────────────
       hostname = {
         ssh_only = false;
-        format = "on [$hostname]($style)"; # << no “prefix” key
+        format = "[$hostname]($style)"; # << no “prefix” key
         style = "bold fg:${toString hostColor}";
       };
 
@@ -179,7 +179,7 @@ in
       # ───── Directory ───────────────────────────────────────────
       directory = {
         read_only = " ";
-        fish_style_pwd_dir_length = 5;
+        fish_style_pwd_dir_length = 20;
         truncation_length = 10;
         style = "fg:${toString pathColor}";
       };
