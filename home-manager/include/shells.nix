@@ -253,7 +253,6 @@ in
       terraform.symbol = mkDefault "𝗧 ";
       vagrant.symbol = mkDefault "𝗩 ";
       zig.symbol = mkDefault " ";
-      character.style = "fg:${toString lambdaColor}";
     };
   };
 
