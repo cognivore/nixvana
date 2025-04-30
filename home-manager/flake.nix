@@ -38,7 +38,7 @@
             passveil       = passveil.packages.${system}.default;
             shmux          = shmux.packages.${system}.default;
             seedot         = seedot.packages.${system}.default;
-            nvix           = nvix.packages.${system}.full;
+            nvix           = nvix.packages.${system}.core;
             system-manager = system-manager.packages.${system}.system-manager;
           })
         ];
@@ -106,4 +106,3 @@
     };
   };
 }
-
