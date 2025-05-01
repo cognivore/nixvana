@@ -4,6 +4,39 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "F1 is F1. Na na Na-na-na.",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "f1" },
+                                "to": [
+                                    {
+                                        "key_code": "f1",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Ctrl+P -> Command+P",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "p",
+                                    "modifiers": { "mandatory": ["left_control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "p",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "PC-Style Paste (Shift+Insert) for JIS/PC keyboard",
                         "manipulators": [
                             {
