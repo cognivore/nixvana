@@ -26,6 +26,8 @@
             pkgs.direnv
             pkgs.nix-direnv
             home-manager.packages.${pkgs.system}.home-manager
+            pkgs.docker
+            pkgs.docker-compose
           ];
 
           # direnv integration for every shell
@@ -61,7 +63,7 @@
             openssh.authorizedKeys.keyFiles = [
               (builtins.fetchurl {
                 url = "https://github.com/cognivore.keys";
-                sha256 = "sha256-06VyCIFVLTMQ/QYqvfzmZhPjLP74oY0S6eXnrX7howk=";
+                sha256 = "sha256-ZjaVZSCVU+3nz3D4oi6Yu85Sz6zRwBYDvCHnBXyYJSs=";
               })
             ];
           };

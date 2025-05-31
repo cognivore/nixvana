@@ -30,5 +30,7 @@
     pkgs.util-linux
 
     pkgs.nvix
+
+    pkgs.mosh
   ];
 }
