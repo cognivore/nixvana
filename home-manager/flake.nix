@@ -18,11 +18,12 @@
     shmux.url                = "github:doma-engineering/shmux";
     seedot.url               = "github:cognivore/seedot";
     nvix.url                 = "github:niksingh710/nvix";
+    demo.url                 = "github:cognivore/demo";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, stylix
                    , passveil, shmux, seedot, system-manager
-                   , purescript-overlay, nixgl, nvix, ... }:
+                   , purescript-overlay, nixgl, nvix, demo, ... }:
 
   let
     #──────────── helper: pkgs with overlays for a given system ────────────
@@ -40,6 +41,8 @@
             seedot         = seedot.packages.${system}.default;
             nvix           = nvix.packages.${system}.core;
             system-manager = system-manager.packages.${system}.system-manager;
+            demo           = demo.packages.${system}.demo;
+            demo-hint-env  = demo.packages.${system}.hintEnv;
           })
         ];
       };

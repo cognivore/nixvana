@@ -275,9 +275,6 @@ in
       theme = "dst";
     };
     shellAliases = {
-      mc = ''
-        bash -c "SHELL=/home/sweater/.nix-profile/bin/bash mc"
-      '';
     };
     sessionVariables = {
       ZSH_THEME = "spaceship";

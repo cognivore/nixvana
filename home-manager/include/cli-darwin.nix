@@ -32,5 +32,8 @@
     pkgs.nvix
 
     pkgs.mosh
+    
+    # Demo presentation framework
+    pkgs.demo
   ];
 }
