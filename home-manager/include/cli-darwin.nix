@@ -32,6 +32,8 @@
     pkgs.nvix
 
     pkgs.mosh
-    
+
+    # Demo presentation framework (lowPrio set in overlay to avoid GMP collision)
+    pkgs.demo
   ];
 }
