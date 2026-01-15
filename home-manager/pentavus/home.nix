@@ -75,8 +75,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   
-  # Demo presentation framework
-  programs.demo.enable = true;
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;

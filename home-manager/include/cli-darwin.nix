@@ -33,7 +33,5 @@
 
     pkgs.mosh
     
-    # Demo presentation framework
-    pkgs.demo
   ];
 }
