@@ -35,5 +35,6 @@
 
     # Demo presentation framework (lowPrio set in overlay to avoid GMP collision)
     pkgs.demo
+    pkgs.demo-hint-env  # GHC with packages needed by hint interpreter at runtime
   ];
 }

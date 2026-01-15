@@ -43,6 +43,7 @@
             system-manager = system-manager.packages.${system}.system-manager;
             # Use lowPrio to avoid libgmpxx collision with passveil
             demo           = prev.lib.lowPrio (demo.packages.${system}.demo);
+            demo-hint-env  = prev.lib.lowPrio (demo.packages.${system}.hintEnv);
           })
         ];
       };
