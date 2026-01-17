@@ -74,11 +74,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1768663155,
-        "narHash": "sha256-mKIArPTQtUuCWJnA2yzVCq8D9rGy1frU58W8S03BKl0=",
+        "lastModified": 1768665270,
+        "narHash": "sha256-WSUZO0t8OloS/orY++h0qNKGEohHZCs9Tzh+ksu200g=",
         "owner": "cognivore",
         "repo": "demo",
-        "rev": "cc5e7000c2f9578fba604f83334efdb050afc7a5",
+        "rev": "20db8cc13b474e36eb4c09808aacaec016065c7e",
         "type": "github"
       },
       "original": {
