@@ -58,7 +58,6 @@
               # Use lowPrio to avoid libgmpxx collision with passveil
               demo = prev.lib.lowPrio (demo.packages.${system}.demo);
               demo-hint-env = prev.lib.lowPrio (demo.packages.${system}.hintEnv);
-              demo-src = demo.packages.${system}.demoSrc;
             })
           ];
         };
@@ -128,6 +127,7 @@
           modules = [
             ./general11-darwin.nix
             ./pentavus/home.nix
+            demo.homeManagerModules.default
           ];
         };
       };

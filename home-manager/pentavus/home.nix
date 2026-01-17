@@ -92,6 +92,7 @@
   # It is included in flake.nix
   imports = [
     ./shells.nix
+    ./cachix.nix
   ];
 
 }
